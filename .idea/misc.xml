@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/favorite.xml" value="0.1" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/home.xml" value="0.1075" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1075" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/notifications.xml" value="0.1075" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/settings.xml" value="0.1075" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/activity_main.xml" value="0.20422535211267606" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_alerts.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_favorite.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_favorite_details.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_home.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_settings.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/hours_custom_row.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/menu/bottom_navigation_menue.xml" value="0.25416666666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
