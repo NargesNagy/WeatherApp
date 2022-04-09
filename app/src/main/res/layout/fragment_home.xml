@@ -63,10 +63,10 @@
                         android:id="@+id/showimageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="36dp"
+                        android:layout_marginTop="72dp"
                         android:src="@drawable/cloud2"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.812"
+                        app:layout_constraintHorizontal_bias="0.856"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -74,11 +74,11 @@
                         android:id="@+id/temperature_home_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="28dp"
                         android:textColor="@color/pluedd"
-                        android:textSize="50sp"
+                        android:textSize="60sp"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.265"
+                        app:layout_constraintHorizontal_bias="0.254"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="@+id/showimageView" />
 
