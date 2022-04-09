@@ -43,10 +43,11 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView"
-                android:layout_width="369dp"
+                android:layout_width="330dp"
                 android:layout_height="500dp"
                 android:layout_margin="20dp"
                 app:cardCornerRadius="12dp"
+                android:background="@color/plue_light"
                 app:cardElevation="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.492"
@@ -59,11 +60,11 @@
 
 
                     <ImageView
-                        android:id="@+id/imageView"
+                        android:id="@+id/showimageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="36dp"
-                        android:src="@drawable/ic_launcher_background"
+                        android:src="@drawable/cloud2"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.812"
                         app:layout_constraintStart_toStartOf="parent"
@@ -79,7 +80,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.265"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/imageView" />
+                        app:layout_constraintTop_toTopOf="@+id/showimageView" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="303dp"
@@ -112,10 +113,10 @@
 
                                 <ImageView
                                     android:id="@+id/pimageView2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:layout_marginTop="24dp"
-                                    android:src="@drawable/favorite"
+                                    android:src="@drawable/pre3"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -167,10 +168,10 @@
 
                                 <ImageView
                                     android:id="@+id/himageView2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:layout_marginTop="8dp"
-                                    android:src="@drawable/favorite"
+                                    android:src="@drawable/hum3"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -223,10 +224,10 @@
 
                                 <ImageView
                                     android:id="@+id/wimageView2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
                                     android:layout_marginTop="8dp"
-                                    android:src="@drawable/favorite"
+                                    android:src="@drawable/w3"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -279,10 +280,10 @@
 
                                 <ImageView
                                     android:id="@+id/cimageView2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:layout_marginTop="8dp"
-                                    android:src="@drawable/favorite"
+                                    android:src="@drawable/cloud2"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -333,10 +334,10 @@
 
                                 <ImageView
                                     android:id="@+id/vimageView2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:layout_marginTop="8dp"
-                                    android:src="@drawable/favorite"
+                                    android:src="@drawable/uv4"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
@@ -387,10 +388,10 @@
 
                                 <ImageView
                                     android:id="@+id/visibilityimageView2"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
                                     android:layout_marginTop="8dp"
-                                    android:src="@drawable/favorite"
+                                    android:src="@drawable/vicibe3"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toTopOf="parent" />
