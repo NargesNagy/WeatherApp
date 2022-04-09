@@ -7,4 +7,10 @@
     <string name="alerts">Alerts</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="Pressure">Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="wind">Wind</string>
+    <string name="cloud">Cloud</string>
+    <string name="ultraViolit">Ultra Violit</string>
+    <string name="visibility">Visibility</string>
 </resources>

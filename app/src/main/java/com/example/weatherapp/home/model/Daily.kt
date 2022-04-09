@@ -1,6 +1,6 @@
 package com.example.weatherapp.home.model
 
-data class Daily( val dt: Int,
+data class Daily( val dt: Long,
                   val sunrise: Int,
                   val sunset: Int,
                   val moonrise: Int,
