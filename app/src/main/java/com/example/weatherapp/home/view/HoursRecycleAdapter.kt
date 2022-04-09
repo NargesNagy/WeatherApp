@@ -40,6 +40,29 @@ class HoursRecycleAdapter  (val hours: List<Hourly>, val context : Context ) : R
         //holder.image.setImageResource().toLong()).toString()
         holder.hourText.text =getDateTime(hours.get(position).dt)
         holder.temp.text = hours.get(position).temp.toString()
+        var icon = hours.get(position).weather?.get(0).icon
+        when (icon){
+            "01d" -> holder.image.setImageResource(R.drawable.cloud2)
+            "02d" -> holder.image.setImageResource(R.drawable.cloud_sun2)
+            "03d" -> holder.image.setImageResource(R.drawable.cloud2)//blackcloud_lighting
+            "04d" -> holder.image.setImageResource(R.drawable.cloud2)
+            "09d" -> holder.image.setImageResource(R.drawable.rain)
+            "10d" -> holder.image.setImageResource(R.drawable.clouds__rain_sun)
+            "11d" -> holder.image.setImageResource(R.drawable.stormy)
+            "13d" -> holder.image.setImageResource(R.drawable.snow)
+            "50d" -> holder.image.setImageResource(R.drawable.darkcloud_rain)
+            "01n" -> holder.image.setImageResource(R.drawable.cloud2)
+            "02n" -> holder.image.setImageResource(R.drawable.cloud_sun2)
+            "03n" -> holder.image.setImageResource(R.drawable.cloud2)
+            "04n" -> holder.image.setImageResource(R.drawable.cloud2)
+            "09n" -> holder.image.setImageResource(R.drawable.rain)
+            "10n" -> holder.image.setImageResource(R.drawable.clouds__rain_sun)
+            "11n" -> holder.image.setImageResource(R.drawable.stormy)
+            "13n" -> holder.image.setImageResource(R.drawable.snow)
+            "50n" -> holder.image.setImageResource(R.drawable.darkcloud_rain)
+
+        }
+
 
     }
 
