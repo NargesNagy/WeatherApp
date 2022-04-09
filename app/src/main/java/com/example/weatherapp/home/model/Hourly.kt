@@ -1,6 +1,6 @@
 package com.example.weatherapp.home.model
 
-data class Hourly( val dt: Int ,
+data class Hourly( val dt: Long ,
                    val temp: Double,
                    val feels_like: Double,
                    val pressure: Int ,

@@ -8,13 +8,17 @@
         <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1075" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/notifications.xml" value="0.1075" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/drawable/settings.xml" value="0.1075" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout-port/m.xml" value="0.1" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/activity_main.xml" value="0.20422535211267606" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/daily_custom_row.xml" value="0.264" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_alerts.xml" value="0.22056159420289856" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_favorite.xml" value="0.22056159420289856" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_favorite_details.xml" value="0.22056159420289856" />
-        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_home.xml" value="0.22056159420289856" />
-        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_settings.xml" value="0.22056159420289856" />
-        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/hours_custom_row.xml" value="0.22056159420289856" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_home.xml" value="0.23270440251572327" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/fragment_settings.xml" value="0.136" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/hours_custom_row.xml" value="0.264" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/m.xml" value="0.23505434782608695" />
+        <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/layout/nn.xml" value="0.8536184210526315" />
         <entry key="..\:/Users/Dell/AndroidStudioProjects/WeatherApp/app/src/main/res/menu/bottom_navigation_menue.xml" value="0.25416666666666665" />
       </map>
     </option>
