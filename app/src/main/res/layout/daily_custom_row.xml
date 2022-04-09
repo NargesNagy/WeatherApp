@@ -40,9 +40,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="20dp"
-
                 android:layout_marginTop="16dp"
-                android:src="@drawable/ic_launcher_background"
+                android:src="@drawable/cloud2"
                 app:layout_constraintEnd_toStartOf="@+id/dailyTemperature"
                 app:layout_constraintHorizontal_bias="0.113"
                 app:layout_constraintStart_toEndOf="@id/dayName"

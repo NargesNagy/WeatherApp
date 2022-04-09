@@ -43,7 +43,29 @@ class DailyRecycleAdapter (val daily: List<Daily>, val context : Context) : Recy
         holder.dayNameText.text =getDateTime(daily.get(position).dt)
         holder.daydescription.text = daily.get(position).weather?.get(0).description
         holder.dailytemp.text =daily.get(position).temp.max.toString()+"/"+daily.get(position).temp.min
+        var icon = daily.get(position).weather?.get(0).icon
 
+        when (icon){
+            "01d" -> holder.dailyimage.setImageResource(R.drawable.suny)
+            "02d" -> holder.dailyimage.setImageResource(R.drawable.cloud_sun2)
+            "03d" -> holder.dailyimage.setImageResource(R.drawable.cloud2)//blackcloud_lighting
+            "04d" -> holder.dailyimage.setImageResource(R.drawable.cloud2)
+            "09d" -> holder.dailyimage.setImageResource(R.drawable.rain)
+            "10d" -> holder.dailyimage.setImageResource(R.drawable.clouds__rain_sun)
+            "11d" -> holder.dailyimage.setImageResource(R.drawable.stormy)
+            "13d" -> holder.dailyimage.setImageResource(R.drawable.snow)
+            "50d" -> holder.dailyimage.setImageResource(R.drawable.darkcloud_rain)
+            "01n" -> holder.dailyimage.setImageResource(R.drawable.suny)
+            "02n" -> holder.dailyimage.setImageResource(R.drawable.cloud_sun2)
+            "03n" -> holder.dailyimage.setImageResource(R.drawable.cloud2)
+            "04n" -> holder.dailyimage.setImageResource(R.drawable.cloud2)
+            "09n" -> holder.dailyimage.setImageResource(R.drawable.rain)
+            "10n" -> holder.dailyimage.setImageResource(R.drawable.clouds__rain_sun)
+            "11n" -> holder.dailyimage.setImageResource(R.drawable.stormy)
+            "13n" -> holder.dailyimage.setImageResource(R.drawable.snow)
+            "50n" -> holder.dailyimage.setImageResource(R.drawable.darkcloud_rain)
+
+        }
     }
 
 
