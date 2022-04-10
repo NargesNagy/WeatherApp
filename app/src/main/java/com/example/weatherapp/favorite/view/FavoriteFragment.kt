@@ -81,10 +81,10 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
             binding.editcitynametext.visibility = View.VISIBLE
             binding.favoriteRecycle.visibility = View.GONE
 
-            binding.editcitynametext.setOnClickListener {
-                binding.favoriteFloatingbtn.visibility = View.GONE
-                binding.savebtn.setOnClickListener {
 
+
+                binding.savebtn.setOnClickListener {
+                    binding.favoriteFloatingbtn.visibility = View.GONE
                     Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
                     var  city = binding.editcitynametext.text.toString()
                     var gc = Geocoder(requireActivity() , Locale.getDefault())
@@ -98,8 +98,9 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
                         viewModal.insertCity(favorite)
                         Log.i("TAG", "onCreateView: adedddddddddddddddddddddddddddddddddddddddddddddddd")
 
-                        binding.latlongtext.setText("latt ${address.latitude} ${address.longitude} ${address.adminArea}")
-
+                        //binding.latlongtext.setText("latt ${address.latitude} ${address.longitude} ${address.adminArea}")
+                        binding.favoriteRecycle.visibility = View.VISIBLE
+                        binding.favoriteFloatingbtn.visibility=View.VISIBLE
                     }else {
                         Toast.makeText(requireContext() , "Plesse enter valid area" , Toast.LENGTH_SHORT).show()
                         Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
@@ -107,7 +108,7 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
                     }
 
                 }
-            }
+
 
         }
 
@@ -135,6 +136,7 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
             favAdapter.setList(it as ArrayList<FavoriteModel>)
         })
     }
+
         //private fun initView() {
         //   binding.fabAdd.setOnClickListener {
         //     val intent = Intent(this, MainActivity2::class.java)

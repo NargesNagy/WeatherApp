@@ -17,5 +17,6 @@
     <color name="pluee">#4A79F3</color>
     <color name="orange_light">#FD9B3D</color>
     <color name="orange_dark">#FF952E</color>
+    <color name="back" >#57AECDFF</color>
 
 </resources>
