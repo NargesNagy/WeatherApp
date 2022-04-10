@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/favoriteFragment2"
-        android:name="com.example.weatherapp.FavoriteFragment"
+        android:name="com.example.weatherapp.favorite.view.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
@@ -25,9 +25,10 @@
         android:name="com.example.weatherapp.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+
     <fragment
         android:id="@+id/favoriteDetailsFragment"
-        android:name="com.example.weatherapp.FavoriteDetailsFragment"
+        android:name="com.example.weatherapp.favorite.view.FavoriteDetailsFragment"
         android:label="fragment_favorite_details"
         tools:layout="@layout/fragment_favorite_details" />
 </navigation>

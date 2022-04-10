@@ -1,14 +1,494 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FavoriteDetailsFragment">
+    tools:context="com.example.weatherapp.favorite.view.FavoriteDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="0dp">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/favorite_details_country_Name_home_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:textColor="@color/pluedd"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.009"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/favorite_details_date_home_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:textColor="@color/pluedd"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.044"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorite_details_country_Name_home_text" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/favorite_details_cardView"
+                android:layout_width="330dp"
+                android:layout_height="500dp"
+                android:layout_margin="20dp"
+                app:cardCornerRadius="12dp"
+                android:background="@color/plue_light"
+                app:cardElevation="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.492"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorite_details_date_home_text">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <ImageView
+                        android:id="@+id/favorite_details_showimageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="72dp"
+                        android:src="@drawable/cloud2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.856"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/favorite_details_temperature_home_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:textColor="@color/pluedd"
+                        android:textSize="60sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.254"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/favorite_details_showimageView" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="303dp"
+                        android:layout_height="270dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/favorite_details_temperature_home_text"
+                        app:layout_constraintVertical_bias="0.937">
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/favorite_details_cardView3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="24dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintHeight_percent=".4"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent=".25">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp">
+
+
+                                <ImageView
+                                    android:id="@+id/favorite_details_pimageView2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginTop="24dp"
+                                    android:src="@drawable/pre3"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_pressurstext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="75"
+                                    app:layout_constraintBottom_toTopOf="@+id/favorite_details_ptextView"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/favorite_details_pimageView2" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_ptextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:text="@string/Pressure"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/favorite_details_cardView5"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="12dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintHeight_percent=".35"
+                            app:layout_constraintStart_toEndOf="@+id/favorite_details_cardView3"
+                            app:layout_constraintTop_toTopOf="@id/favorite_details_cardView3"
+                            app:layout_constraintWidth_percent=".25">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp">
+
+
+                                <ImageView
+                                    android:id="@+id/favorite_details_himageView2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginTop="8dp"
+                                    android:src="@drawable/hum3"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_humiditytext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="75"
+                                    app:layout_constraintBottom_toTopOf="@id/favorite_details_htextView"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/favorite_details_himageView2" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_htextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:text="@string/humidity"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/favorite_details_cardView4"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_marginEnd="12dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHeight_percent=".35"
+                            app:layout_constraintTop_toTopOf="@+id/favorite_details_cardView5"
+                            app:layout_constraintWidth_percent=".25">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp">
+
+
+                                <ImageView
+                                    android:id="@+id/favorite_details_wimageView2"
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:layout_marginTop="8dp"
+                                    android:src="@drawable/w3"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_windtext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="75"
+                                    app:layout_constraintBottom_toTopOf="@+id/favorite_details_wtextView"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/favorite_details_wimageView2" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_wtextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:text="@string/wind"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/favorite_details_cardView6"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="24dp"
+                            android:layout_marginTop="40dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintHeight_percent=".35"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/favorite_details_cardView3"
+                            app:layout_constraintWidth_percent=".25">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp">
+
+
+                                <ImageView
+                                    android:id="@+id/favorite_details_cimageView2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginTop="8dp"
+                                    android:src="@drawable/cloud2"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_cloudtext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="75"
+                                    app:layout_constraintBottom_toTopOf="@+id/favorite_details_ctextView"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/favorite_details_cimageView2" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_ctextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:text="@string/cloud"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/favorite_details_cardView7"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginStart="20dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintHeight_percent=".35"
+                            app:layout_constraintStart_toEndOf="@+id/favorite_details_cardView6"
+                            app:layout_constraintTop_toTopOf="@+id/favorite_details_cardView6"
+                            app:layout_constraintWidth_percent=".25">
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp">
+
+
+                                <ImageView
+                                    android:id="@+id/favorite_details_vimageView2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginTop="8dp"
+                                    android:src="@drawable/uv4"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_ultraviolittext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="75"
+                                    app:layout_constraintBottom_toTopOf="@+id/favorite_details_vtextView"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/favorite_details_vimageView2" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_vtextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:text="@string/ultraViolit"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:cardElevation="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHeight_percent=".35
+"
+                            app:layout_constraintHorizontal_bias="0.589"
+                            app:layout_constraintStart_toEndOf="@+id/favorite_details_cardView7"
+                            app:layout_constraintTop_toTopOf="@+id/favorite_details_cardView7"
+                            app:layout_constraintWidth_percent=".25">
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_margin="5dp">
+
+
+                                <ImageView
+                                    android:id="@+id/favorite_details_visibilityimageView2"
+                                    android:layout_width="30dp"
+                                    android:layout_height="30dp"
+                                    android:layout_marginTop="8dp"
+                                    android:src="@drawable/vicibe3"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_visibilitytext"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="2dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:text="75"
+                                    app:layout_constraintBottom_toTopOf="@+id/favorite_details_vistextView"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/favorite_details_visibilityimageView2" />
+
+                                <TextView
+                                    android:id="@+id/favorite_details_vistextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="4dp"
+                                    android:text="@string/visibility"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+            <!--
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cardView">
+
+
+                </androidx.cardview.widget.CardView>
+                -->
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favorite_details_hoursRecycleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorite_details_cardView">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/favorite_details_dailyRecycleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/favorite_details_hoursRecycleView">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/favorite_details_cardView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/favorite_details_dailyRecycleView">
+
+
+            </androidx.cardview.widget.CardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

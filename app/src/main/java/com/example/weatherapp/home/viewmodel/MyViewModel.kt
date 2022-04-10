@@ -28,11 +28,11 @@ class MyViewModel constructor(private val mainRepository: Repository) : ViewMode
         job = CoroutineScope(Dispatchers.IO ).launch {
             val response = mainRepository.getWeather(lat , lon , lan , unites )//, lan , unites
             withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
+                if (response?.isSuccessful == true) {
                     _response.postValue(response.body())
                     // loading.value = false
                 } else {
-                    onError("Error rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr: ${response.message()} ")
+                    onError("Error rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr: ${response?.message()} ")
                 }
             }
         }
