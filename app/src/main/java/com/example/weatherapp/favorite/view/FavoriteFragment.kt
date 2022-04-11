@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
@@ -70,6 +71,7 @@ class FavoriteFragment : Fragment(), FavoriteClickInterface, FavoriteOnDeleteCli
         ).get(FavoriteViewModel::class.java)
         getDailyRecyleview()
         observeg()
+        getSettings()
 
          // auto complete places
         /*
@@ -99,33 +101,45 @@ class FavoriteFragment : Fragment(), FavoriteClickInterface, FavoriteOnDeleteCli
                 Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
                 var city = binding.editcitynametext.text.toString()
                 var gc = Geocoder(requireActivity(), Locale.getDefault())
-                var addresses = gc.getFromLocationName(city, 1)
-                if (!addresses.isNullOrEmpty()) {
-                    var address = addresses.get(0)
-                    binding.editcitynametext.visibility = View.GONE
-                    binding.savebtn.visibility = View.GONE
-                    binding.favoriteFloatingbtn.visibility = View.VISIBLE
-                    val favorite = FavoriteModel(
-                        address.hashCode(),
-                        binding.editcitynametext.text.toString(),
-                        address.latitude,
-                        address.longitude
-                    )
-                    viewModal.insertCity(favorite)
-                  //  Log.i("TAG", "onCreateView: adedddddddddddddddddddddddddddddddddddddddddddddddd")
+                if(!city.isNullOrEmpty()){
+                    var addresses = gc.getFromLocationName(city, 1)
+                    if (!addresses.isNullOrEmpty()) {
+                        var address = addresses.get(0)
+                        binding.editcitynametext.visibility = View.GONE
+                        binding.savebtn.visibility = View.GONE
+                        binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                        val favorite = FavoriteModel(
+                            address.hashCode(),
+                            binding.editcitynametext.text.toString(),
+                            address.latitude,
+                            address.longitude
+                        )
+                        viewModal.insertCity(favorite)
+                        //  Log.i("TAG", "onCreateView: adedddddddddddddddddddddddddddddddddddddddddddddddd")
 
-                    //binding.latlongtext.setText("latt ${address.latitude} ${address.longitude} ${address.adminArea}")
-                    binding.favoriteRecycle.visibility = View.VISIBLE
-                    binding.favoriteFloatingbtn.visibility = View.VISIBLE
-                } else {
-                    Toast.makeText(requireContext(), "Plesse enter valid area", Toast.LENGTH_SHORT).show()
-                  //  Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+                        //binding.latlongtext.setText("latt ${address.latitude} ${address.longitude} ${address.adminArea}")
+                        binding.favoriteRecycle.visibility = View.VISIBLE
+                        binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                    } else {
+                        Toast.makeText(requireContext(), "Plesse enter valid area", Toast.LENGTH_SHORT).show()
+                        //  Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+
+                    }
+                }else{
+                    Toast.makeText(requireContext(), "Plesse enter a city", Toast.LENGTH_SHORT).show()
 
                 }
+
             }
         }
 
         return binding.root
+    }
+
+    private fun getSettings() {
+        val sp = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        val ls = sp.getString("reply" , "")
+        Log.i("TAG", "getSettings: ${ls}  mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm")
     }
 
     private fun getDailyRecyleview() {

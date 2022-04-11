@@ -17,6 +17,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
@@ -48,9 +49,11 @@ class FavoriteDetailsFragment : Fragment() {
     lateinit var dailyRecycleViewAdapter : DailyRecycleAdapter;
     lateinit var dailyList : List<Daily>
 
-    private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
+
     var lattitude : Double = 31.1926745
     var longtude : Double = 29.9245787
+    var language : String = "en"
+    var unites : String = "metric"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,11 +73,13 @@ class FavoriteDetailsFragment : Fragment() {
         var args = this.arguments
         lattitude = args?.get("latitude") as Double
         longtude = args?.get("longtude") as Double
-        Log.i("TAG", "onCreateView: ${lattitude}ttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+
+        // get language and unites from  shared
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        language = sharedPreferences.getString("languages", "").toString()
+        unites = sharedPreferences.getString("tempretures" , "").toString()
 
         binding = FragmentFavoriteDetailsBinding.inflate(LayoutInflater.from(context) , container , false)//,container , false)
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = Repository(retrofitService)
@@ -149,7 +154,7 @@ class FavoriteDetailsFragment : Fragment() {
         })
 
 
-        viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
+        viewModel.getAllMovies(lattitude , longtude ,language , unites , "minutely" , "fccb113f3db977a207025c87caa649c0")//
 
         return binding.root
     }
@@ -176,133 +181,4 @@ class FavoriteDetailsFragment : Fragment() {
         super.onPause()
         binding.favoriteDetailsCountryNameHomeText.visibility = View.GONE
     }
-
-/*
-    private fun getCurrentLocation() {
-        if (checkPermission()) {
-            if (isLocationIsEnabled()) {
-                getLocations()
-            } else {
-                // Toast.makeText(this, "Turn on Location", Toast.LENGTH_SHORT).show()
-                enableLocationSettings()
-            }
-        } else {
-            requestPermission()
-        }
-    }
-
-    private fun checkPermission(): Boolean {
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION
-            )
-            == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            return true
-        }
-        return false
-    }
-
-    private fun requestPermission() {
-        ActivityCompat.requestPermissions(
-            requireActivity(), arrayOf(
-                android.Manifest.permission.ACCESS_COARSE_LOCATION,
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            ), PERMISSION_REQUEST_ACESS_LOCATION
-        )
-    }
-
-    companion object {
-        private const val PERMISSION_REQUEST_ACESS_LOCATION = 100
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int, permissions: Array<out String>, grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
-        if (requestCode == PERMISSION_REQUEST_ACESS_LOCATION) {
-            if (grantResults.isEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
-                getCurrentLocation()
-
-            } else {
-                //Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    @SuppressLint("ServiceCast")
-    private fun isLocationIsEnabled(): Boolean {
-        val locationManager : LocationManager = getActivity()?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-        // val locationManager: LocationManager = //getSystemService(LOCATION_SERVICE) as LocationManager
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
-            LocationManager.NETWORK_PROVIDER
-        )
-    }
-
-    private fun enableLocationSettings() {
-        val settingIntent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-        startActivity(settingIntent)
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun getLocations() {
-
-        fusedLocationProviderClient.lastLocation?.addOnCompleteListener {
-            //@NonNull
-            val location: Location? = it.getResult()
-            if (location == null) {
-                requestNewLocationData()
-            } else it.apply {
-                lattitude = location.latitude
-                longtude = location.longitude
-                Log.i("TAG", "getLocations: ${lattitude} ggggggggggg ${longtude}")
-
-                viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
-
-                //  text.text = "Lattitude $lat  and Longtude $lon"
-            }
-        }
-    }
-
-    @SuppressLint("MissingPermission")
-    private fun requestNewLocationData() {
-        // initialize locationrequest
-        // object with aproparate methods
-        val mlocationRequest = LocationRequest()
-        mlocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        mlocationRequest.interval = 5
-        mlocationRequest.fastestInterval = 0
-        mlocationRequest.numUpdates = 1
-
-        // setting locationrequest
-        // on fusedlocationclient
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-        fusedLocationProviderClient.requestLocationUpdates(
-            mlocationRequest, mLocationCallBack,
-            Looper.myLooper()!!
-        )
-    }
-
-    private val mLocationCallBack: LocationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult) {
-            super.onLocationResult(locationResult)
-            val mLastLocation = locationResult.lastLocation
-            lattitude = mLastLocation.latitude
-            longtude = mLastLocation.longitude
-
-            Log.i("TAG", "onLocationResult: ${lattitude } hhh ${longtude}" )
-            viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
-
-            // text.setText("Latitude : " + mLastLocation.latitude)
-            //text.setText("Longitude : " + mLastLocation.longitude)
-        }
-    }
-
-*/
-
 }

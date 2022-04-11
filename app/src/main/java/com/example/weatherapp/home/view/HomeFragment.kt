@@ -1,39 +1,38 @@
 package com.example.weatherapp.home.view
 
+//import com.example.weatherapp.databinding.FragmentHomeBinding
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.content.res.Resources
 import android.location.Location
 import android.location.LocationManager
+import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ServiceCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.data.Repository
 import com.example.weatherapp.data.remotesource.RetrofitService
 import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.favorite.view.FavoriteDetailsFragment
-//import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.home.viewmodel.MyViewModel
 import com.example.weatherapp.home.model.Daily
 import com.example.weatherapp.home.model.Hourly
+import com.example.weatherapp.home.viewmodel.MyViewModel
 import com.example.weatherapp.home.viewmodel.ViewModelFactory
 import com.google.android.gms.location.*
 import java.text.SimpleDateFormat
@@ -42,43 +41,59 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     lateinit var viewModel: MyViewModel
-    lateinit var binding : FragmentHomeBinding
+    lateinit var binding: FragmentHomeBinding
 
-    lateinit var hoursRecycleView : RecyclerView;
-    lateinit var hoursRecycleViewAdapter :HoursRecycleAdapter ;
-    lateinit var hoursList : List<Hourly>
+    lateinit var hoursRecycleView: RecyclerView;
+    lateinit var hoursRecycleViewAdapter: HoursRecycleAdapter;
+    lateinit var hoursList: List<Hourly>
 
-    lateinit var dailyRecycleView : RecyclerView;
-    lateinit var dailyRecycleViewAdapter :DailyRecycleAdapter ;
-    lateinit var dailyList : List<Daily>
+    lateinit var dailyRecycleView: RecyclerView;
+    lateinit var dailyRecycleViewAdapter: DailyRecycleAdapter;
+    lateinit var dailyList: List<Daily>
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
-    var lattitude : Double = 31.1926745
-    var longtude : Double = 29.9245787
+    var lattitude: Double = 31.1926745
+    var longtude: Double = 29.9245787
+    var language: String = "en"
+    var unites: String = "metric"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        //view?.setBackgroundColor(resources.getColor(R.color.back))
-        //fragmentManager?.findFragmentById(R.id.favoriteDetailsFragment )?.view?.visibility = GONE
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        language = sharedPreferences.getString("languages", "").toString()
+        unites = sharedPreferences.getString("tempretures", "").toString()
 
-        binding = FragmentHomeBinding.inflate(LayoutInflater.from(context) , container , false)//,container , false)
-        //setContentView(binding.root)
+        // get the language and apply iy
+        val configuration: Configuration = requireContext().resources.configuration
+        var locale = Locale(language)
+        Locale.setDefault(locale)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            configuration.setLocale(locale)
+
+        } else {
+            configuration.locale = locale
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            activity?.getApplicationContext()?.createConfigurationContext(configuration);
+            resources.updateConfiguration(configuration, resources.displayMetrics)
+            binding = FragmentHomeBinding.inflate(LayoutInflater.from(context), container, false)//,container , false)
+
+        } else {
+            binding = FragmentHomeBinding.inflate(LayoutInflater.from(context), container, false)//,container , false)
+        }
+
+
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
-
 
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = Repository(retrofitService)
 
-
         viewModel = ViewModelProvider(this, ViewModelFactory(mainRepository)).get(MyViewModel::class.java)
-
-
         viewModel._response.observe(requireActivity(), {
             /*
             Weather->
@@ -93,15 +108,14 @@ class HomeFragment : Fragment() {
 
             binding.countryNameHomeText.text = timezone
 
-
             Log.i("TAG", "onCreateView: ${weather.current.weather?.get(0)?.icon}")
 
             val formatedDate: String = SimpleDateFormat("EEE, d MMM yyyy ", Locale.ENGLISH).format(Date())
             binding.dateHomeText.text = formatedDate
-            binding.temperatureHomeText.text = weather.current.temp.toInt().toString() +"°"
+            binding.temperatureHomeText.text = weather.current.temp.toInt().toString() + "°"
 
             var icon = weather.current.weather?.get(0)?.icon
-            when (icon){
+            when (icon) {
                 "01d" -> binding.showimageView.setImageResource(R.drawable.cloud_sun2)
                 "02d" -> binding.showimageView.setImageResource(R.drawable.cloud2)
                 "03d" -> binding.showimageView.setImageResource(R.drawable.blackcloud_lighting)
@@ -124,14 +138,14 @@ class HomeFragment : Fragment() {
             }
 
             hoursList = weather?.hourly ?: emptyList()
-            dailyList = weather?.daily?: emptyList()
+            dailyList = weather?.daily ?: emptyList()
 
             binding.pressurstext.text = weather.daily?.get(0)?.pressure.toString() + " hpa"
-            binding.humiditytext.text=weather.daily?.get(0)?.humidity.toString() + " %"
-            binding.windtext.text=weather.daily?.get(0)?.wind_speed.toString() + " m/s"
-            binding.cloudtext.text=weather.daily?.get(0)?.clouds.toString() + " %"
-            binding.ultraviolittext.text=weather.current?.uvi.toString() + ""
-            binding.visibilitytext.text=weather.current?.visibility.toString() + " m"
+            binding.humiditytext.text = weather.daily?.get(0)?.humidity.toString() + " %"
+            binding.windtext.text = weather.daily?.get(0)?.wind_speed.toString() + " m/s"
+            binding.cloudtext.text = weather.daily?.get(0)?.clouds.toString() + " %"
+            binding.ultraviolittext.text = weather.current?.uvi.toString() + ""
+            binding.visibilitytext.text = weather.current?.visibility.toString() + " m"
 
 
             gethoursRecyleview()
@@ -139,40 +153,36 @@ class HomeFragment : Fragment() {
         })
 
         viewModel.errorMessage.observe(requireActivity(), {
-            //Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+           // Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
         })
 
         viewModel.loading.observe(requireActivity(), Observer {
             if (it) {
-                //Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-
-            } else {
-                //Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+                   } else {
 
             }
         })
 
         getCurrentLocation()
-        viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
+        viewModel.getAllMovies(lattitude, longtude, language, unites, "minutely", "fccb113f3db977a207025c87caa649c0")
 
         return binding.root
-
     }
 
     private fun gethoursRecyleview() {
         hoursRecycleView = binding.hoursRecycleView
-        val layoutManager = LinearLayoutManager(requireContext() )
+        val layoutManager = LinearLayoutManager(requireContext())
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        hoursRecycleViewAdapter = HoursRecycleAdapter( hoursList , requireContext())
+        hoursRecycleViewAdapter = HoursRecycleAdapter(hoursList, requireContext())
         hoursRecycleView.adapter = hoursRecycleViewAdapter
         hoursRecycleView.layoutManager = layoutManager
     }
 
     private fun getDailyRecyleview() {
         dailyRecycleView = binding.dailyRecycleView
-        val layoutManager = LinearLayoutManager(requireContext() )
+        val layoutManager = LinearLayoutManager(requireContext())
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        dailyRecycleViewAdapter = DailyRecycleAdapter(dailyList , requireContext())
+        dailyRecycleViewAdapter = DailyRecycleAdapter(dailyList, requireContext())
         dailyRecycleView.adapter = dailyRecycleViewAdapter
         dailyRecycleView.layoutManager = layoutManager
     }
@@ -183,7 +193,7 @@ class HomeFragment : Fragment() {
             if (isLocationIsEnabled()) {
                 getLocations()
             } else {
-               // Toast.makeText(this, "Turn on Location", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this, "Turn on Location", Toast.LENGTH_SHORT).show()
                 enableLocationSettings()
             }
         } else {
@@ -226,19 +236,20 @@ class HomeFragment : Fragment() {
 
         if (requestCode == PERMISSION_REQUEST_ACESS_LOCATION) {
             if (grantResults.isEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                //Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Permission Granted", Toast.LENGTH_SHORT).show()
                 getCurrentLocation()
 
             } else {
-                //Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show()
-            }
+                Toast.makeText(requireContext(), "Permission Denied", Toast.LENGTH_SHORT).show()
+
+           }
         }
     }
 
     @SuppressLint("ServiceCast")
     private fun isLocationIsEnabled(): Boolean {
-        val locationManager : LocationManager = getActivity()?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-       // val locationManager: LocationManager = //getSystemService(LOCATION_SERVICE) as LocationManager
+        val locationManager: LocationManager =
+            getActivity()?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -262,9 +273,14 @@ class HomeFragment : Fragment() {
                 longtude = location.longitude
                 Log.i("TAG", "getLocations: ${lattitude} ggggggggggg ${longtude}")
 
-                viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
-
-                //  text.text = "Lattitude $lat  and Longtude $lon"
+                viewModel.getAllMovies(
+                    lattitude,
+                    longtude,
+                    language,
+                    unites,
+                    "minutely",
+                    "fccb113f3db977a207025c87caa649c0"
+                )
             }
         }
     }
@@ -281,7 +297,8 @@ class HomeFragment : Fragment() {
 
         // setting locationrequest
         // on fusedlocationclient
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
+        fusedLocationProviderClient =
+            LocationServices.getFusedLocationProviderClient(requireActivity())
         fusedLocationProviderClient.requestLocationUpdates(
             mlocationRequest, mLocationCallBack,
             Looper.myLooper()!!
@@ -295,11 +312,15 @@ class HomeFragment : Fragment() {
             lattitude = mLastLocation.latitude
             longtude = mLastLocation.longitude
 
-            Log.i("TAG", "onLocationResult: ${lattitude } hhh ${longtude}" )
-            viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
-
-           // text.setText("Latitude : " + mLastLocation.latitude)
-            //text.setText("Longitude : " + mLastLocation.longitude)
+            Log.i("TAG", "onLocationResult: ${lattitude} hhh ${longtude}")
+            viewModel.getAllMovies(
+                lattitude,
+                longtude,
+                language,
+                unites,
+                "minutely",
+                "fccb113f3db977a207025c87caa649c0"
+            )
         }
     }
 

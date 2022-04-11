@@ -13,4 +13,39 @@
     <string name="cloud">Cloud</string>
     <string name="ultraViolit">Ultra Violit</string>
     <string name="visibility">Visibility</string>
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="location">Location</string>
+    <string name="language">Language</string>
+    <string name="tempreture">Tempreture</string>
+    <string name="windSpeed">WindSpeed</string>
+    <string name="gps">GPS</string>
+    <string name="map">Map</string>
+    <string name="english">English</string>
+    <string name="on">ON</string>
+    <string name="off">OFF</string>
+    <string name="ms">m/s</string>
+    <string name="millihour">milli/hour</string>
+    <string name="metresecond">metre/s</string>
+    <string name="celsius">Celsius</string>
+    <string name="kelven">Kelven</string>
+    <string name="fahrenheite">Fahrenheite</string>
+    <string name="pressure">Pressure</string>
+    <string name="ultraViolet">Ultra Violet</string>
+    <string name="clods">Clouds</string>
+    <string name="arabic">Arabic</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
 </resources>

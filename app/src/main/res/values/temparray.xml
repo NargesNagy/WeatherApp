@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="tempreture_entries">
+        <item>@string/celsius</item>
+        <item>@string/kelven</item>
+        <item>@string/fahrenheite</item>
+    </string-array>
+
+    <string-array name="tempreture_values">
+        <item>metric</item>
+        <item>standard</item>
+        <item>imperial</item>
+    </string-array>
+
+</resources>
