@@ -24,8 +24,6 @@ class HoursRecycleAdapter  (val hours: List<Hourly>, val context : Context ) : R
             get() = itemView.findViewById(R.id.hour_text)
         val temp : TextView = itemView.findViewById(R.id.temperature_hourse_text)
 
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -78,7 +76,7 @@ class HoursRecycleAdapter  (val hours: List<Hourly>, val context : Context ) : R
 
         }
 
-   // fun setMyItems(myItems: ArrayList<Hourly>) { hours = myItems }
+    //fun setMyItems(myItems: ArrayList<Hourly>) { this.hours = myItems }
 
 
     override fun getItemCount(): Int {

@@ -1,12 +1,14 @@
 package com.example.weatherapp
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 //import com.example.weatherapp.databinding.ActivityMainBinding
 
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,5 +23,14 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.fragmentContainerView)
         bottomNavigation.setupWithNavController(navController)
 
+
+    }
+
+
+    @SuppressLint("MissingSuperCall")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        for (fragment in supportFragmentManager.fragments) {
+            fragment.onActivityResult(requestCode, resultCode, data)
+        }
     }
 }

@@ -1,9 +1,8 @@
-package com.example.weatherapp.home.view
+package com.example.weatherapp.favorite.view
 
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
@@ -15,60 +14,65 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ServiceCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
 import com.example.weatherapp.data.Repository
 import com.example.weatherapp.data.remotesource.RetrofitService
+import com.example.weatherapp.databinding.FragmentFavoriteDetailsBinding
 import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.favorite.view.FavoriteDetailsFragment
-//import com.example.weatherapp.databinding.FragmentHomeBinding
-import com.example.weatherapp.home.viewmodel.MyViewModel
 import com.example.weatherapp.home.model.Daily
 import com.example.weatherapp.home.model.Hourly
+import com.example.weatherapp.home.view.DailyRecycleAdapter
+import com.example.weatherapp.home.view.HoursRecycleAdapter
+import com.example.weatherapp.home.viewmodel.MyViewModel
 import com.example.weatherapp.home.viewmodel.ViewModelFactory
 import com.google.android.gms.location.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HomeFragment : Fragment() {
+
+class FavoriteDetailsFragment : Fragment() {
 
     lateinit var viewModel: MyViewModel
-    lateinit var binding : FragmentHomeBinding
+    lateinit var binding : FragmentFavoriteDetailsBinding
 
     lateinit var hoursRecycleView : RecyclerView;
-    lateinit var hoursRecycleViewAdapter :HoursRecycleAdapter ;
+    lateinit var hoursRecycleViewAdapter : HoursRecycleAdapter;
     lateinit var hoursList : List<Hourly>
 
     lateinit var dailyRecycleView : RecyclerView;
-    lateinit var dailyRecycleViewAdapter :DailyRecycleAdapter ;
+    lateinit var dailyRecycleViewAdapter : DailyRecycleAdapter;
     lateinit var dailyList : List<Daily>
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var lattitude : Double = 31.1926745
     var longtude : Double = 29.9245787
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        //view?.setBackgroundColor(resources.getColor(R.color.back))
-        //fragmentManager?.findFragmentById(R.id.favoriteDetailsFragment )?.view?.visibility = GONE
+        // get latitude and longtude from favorite fragment
+        val jj = Bundle()
+        jj.get("latt")
 
-        binding = FragmentHomeBinding.inflate(LayoutInflater.from(context) , container , false)//,container , false)
-        //setContentView(binding.root)
+        var args = this.arguments
+        lattitude = args?.get("latitude") as Double
+        longtude = args?.get("longtude") as Double
+        Log.i("TAG", "onCreateView: ${lattitude}ttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
+
+        binding = FragmentFavoriteDetailsBinding.inflate(LayoutInflater.from(context) , container , false)//,container , false)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
@@ -91,47 +95,49 @@ class HomeFragment : Fragment() {
             val weather = it
             val timezone = weather.timezone
 
-            binding.countryNameHomeText.text = timezone
+            binding.favoriteDetailsCountryNameHomeText.text = timezone
 
 
             Log.i("TAG", "onCreateView: ${weather.current.weather?.get(0)?.icon}")
 
-            val formatedDate: String = SimpleDateFormat("EEE, d MMM yyyy ", Locale.ENGLISH).format(Date())
-            binding.dateHomeText.text = formatedDate
-            binding.temperatureHomeText.text = weather.current.temp.toInt().toString() +"°"
+            val formatedDate: String = SimpleDateFormat("EEE, d MMM yyyy ", Locale.ENGLISH).format(
+                Date()
+            )
+            binding.favoriteDetailsDateHomeText.text = formatedDate
+            binding.favoriteDetailsTemperatureHomeText.text = weather.current.temp.toInt().toString() +"°"
 
             var icon = weather.current.weather?.get(0)?.icon
             when (icon){
-                "01d" -> binding.showimageView.setImageResource(R.drawable.cloud_sun2)
-                "02d" -> binding.showimageView.setImageResource(R.drawable.cloud2)
-                "03d" -> binding.showimageView.setImageResource(R.drawable.blackcloud_lighting)
-                "04d" -> binding.showimageView.setImageResource(R.drawable.cloud2)
-                "09d" -> binding.showimageView.setImageResource(R.drawable.cloud_rain)
-                "10d" -> binding.showimageView.setImageResource(R.drawable.cloud_sun2)
-                "11d" -> binding.showimageView.setImageResource(R.drawable.clouds__rain_sun)
-                "13d" -> binding.showimageView.setImageResource(R.drawable.clouds_sun)
-                "50d" -> binding.showimageView.setImageResource(R.drawable.darkcloud_rain)
-                "01n" -> binding.showimageView.setImageResource(R.drawable.stormy)
-                "02n" -> binding.showimageView.setImageResource(R.drawable.cloud2)
-                "03n" -> binding.showimageView.setImageResource(R.drawable.cloud_sun2)
-                "04n" -> binding.showimageView.setImageResource(R.drawable.cloud2)
-                "09n" -> binding.showimageView.setImageResource(R.drawable.cloud_lighting)
-                "10n" -> binding.showimageView.setImageResource(R.drawable.stormy)
-                "11n" -> binding.showimageView.setImageResource(R.drawable.stormy)
-                "13n" -> binding.showimageView.setImageResource(R.drawable.rain)
-                "50n" -> binding.showimageView.setImageResource(R.drawable.rain)
+                "01d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud_sun2)
+                "02d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud2)
+                "03d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.blackcloud_lighting)
+                "04d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud2)
+                "09d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud_rain)
+                "10d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud_sun2)
+                "11d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.clouds__rain_sun)
+                "13d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.clouds_sun)
+                "50d" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.darkcloud_rain)
+                "01n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.stormy)
+                "02n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud2)
+                "03n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud_sun2)
+                "04n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud2)
+                "09n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.cloud_lighting)
+                "10n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.stormy)
+                "11n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.stormy)
+                "13n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.rain)
+                "50n" -> binding.favoriteDetailsShowimageView.setImageResource(R.drawable.rain)
 
             }
 
             hoursList = weather?.hourly ?: emptyList()
             dailyList = weather?.daily?: emptyList()
 
-            binding.pressurstext.text = weather.daily?.get(0)?.pressure.toString() + " hpa"
-            binding.humiditytext.text=weather.daily?.get(0)?.humidity.toString() + " %"
-            binding.windtext.text=weather.daily?.get(0)?.wind_speed.toString() + " m/s"
-            binding.cloudtext.text=weather.daily?.get(0)?.clouds.toString() + " %"
-            binding.ultraviolittext.text=weather.current?.uvi.toString() + ""
-            binding.visibilitytext.text=weather.current?.visibility.toString() + " m"
+            binding.favoriteDetailsPressurstext.text = weather.daily?.get(0)?.pressure.toString() + " hpa"
+            binding.favoriteDetailsHumiditytext.text=weather.daily?.get(0)?.humidity.toString() + " %"
+            binding.favoriteDetailsWindtext.text=weather.daily?.get(0)?.wind_speed.toString() + " m/s"
+            binding.favoriteDetailsCloudtext.text=weather.daily?.get(0)?.clouds.toString() + " %"
+            binding.favoriteDetailsUltraviolittext.text=weather.current?.uvi.toString() + ""
+            binding.favoriteDetailsVisibilitytext.text=weather.current?.visibility.toString() + " m"
 
 
             gethoursRecyleview()
@@ -142,25 +148,14 @@ class HomeFragment : Fragment() {
             //Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.loading.observe(requireActivity(), Observer {
-            if (it) {
-                //Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
 
-            } else {
-                //Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
-
-            }
-        })
-
-        getCurrentLocation()
         viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
 
         return binding.root
-
     }
 
     private fun gethoursRecyleview() {
-        hoursRecycleView = binding.hoursRecycleView
+        hoursRecycleView = binding.favoriteDetailsHoursRecycleView
         val layoutManager = LinearLayoutManager(requireContext() )
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         hoursRecycleViewAdapter = HoursRecycleAdapter( hoursList , requireContext())
@@ -169,7 +164,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun getDailyRecyleview() {
-        dailyRecycleView = binding.dailyRecycleView
+        dailyRecycleView = binding.favoriteDetailsDailyRecycleView
         val layoutManager = LinearLayoutManager(requireContext() )
         layoutManager.orientation = LinearLayoutManager.VERTICAL
         dailyRecycleViewAdapter = DailyRecycleAdapter(dailyList , requireContext())
@@ -177,13 +172,18 @@ class HomeFragment : Fragment() {
         dailyRecycleView.layoutManager = layoutManager
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.favoriteDetailsCountryNameHomeText.visibility = View.GONE
+    }
 
+/*
     private fun getCurrentLocation() {
         if (checkPermission()) {
             if (isLocationIsEnabled()) {
                 getLocations()
             } else {
-               // Toast.makeText(this, "Turn on Location", Toast.LENGTH_SHORT).show()
+                // Toast.makeText(this, "Turn on Location", Toast.LENGTH_SHORT).show()
                 enableLocationSettings()
             }
         } else {
@@ -238,7 +238,7 @@ class HomeFragment : Fragment() {
     @SuppressLint("ServiceCast")
     private fun isLocationIsEnabled(): Boolean {
         val locationManager : LocationManager = getActivity()?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
-       // val locationManager: LocationManager = //getSystemService(LOCATION_SERVICE) as LocationManager
+        // val locationManager: LocationManager = //getSystemService(LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
             LocationManager.NETWORK_PROVIDER
         )
@@ -298,9 +298,11 @@ class HomeFragment : Fragment() {
             Log.i("TAG", "onLocationResult: ${lattitude } hhh ${longtude}" )
             viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
 
-           // text.setText("Latitude : " + mLastLocation.latitude)
+            // text.setText("Latitude : " + mLastLocation.latitude)
             //text.setText("Longitude : " + mLastLocation.longitude)
         }
     }
+
+*/
 
 }
