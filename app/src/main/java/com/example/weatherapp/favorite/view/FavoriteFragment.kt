@@ -14,6 +14,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.weatherapp.R
@@ -28,40 +30,48 @@ import com.google.android.libraries.places.widget.AutocompleteActivity
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.fixedRateTimer
 
 
-class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteClickInterface {
+class FavoriteFragment : Fragment(), FavoriteClickInterface, FavoriteOnDeleteClickInterface {
 
-    lateinit var binding : FragmentFavoriteBinding
+    lateinit var binding: FragmentFavoriteBinding
     private val AUTOCOMPLETE_REQUEST_CODE = 100
     lateinit var viewModal: FavoriteViewModel
     private lateinit var favAdapter: FavoriteAdapter
-    lateinit var favoriteRecycleView : RecyclerView;
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        binding = FragmentFavoriteBinding.inflate(LayoutInflater.from(context) , container , false)//,container , false)
+        binding = FragmentFavoriteBinding.inflate(
+            LayoutInflater.from(context),
+            container,
+            false
+        )//,container , false)
         binding.savebtn.visibility = View.GONE
         binding.editcitynametext.visibility = View.GONE
         binding.favoriteFloatingbtn.visibility = View.VISIBLE
 
-        favAdapter = FavoriteAdapter(this , this )
+        favAdapter = FavoriteAdapter(this, this)
 
-        Places.initialize(requireContext() , "AIzaSyDPGssUuT4_lvpJ4nNDn2ea_MWY1XQ132w")
+        Places.initialize(requireContext(), "AIzaSyDPGssUuT4_lvpJ4nNDn2ea_MWY1XQ132w")
 
         // initializes the viewmodel.
-        viewModal = ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)).get(FavoriteViewModel::class.java)
+        viewModal = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+        ).get(FavoriteViewModel::class.java)
         getDailyRecyleview()
         observeg()
 
-
+         // auto complete places
         /*
         binding.favoriteFloatingbtn.setOnClickListener {
 
@@ -76,6 +86,7 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
 
         }
 */
+
         binding.favoriteFloatingbtn.setOnClickListener {
             binding.savebtn.visibility = View.VISIBLE
             binding.editcitynametext.visibility = View.VISIBLE
@@ -83,67 +94,53 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
 
 
 
-                binding.savebtn.setOnClickListener {
-                    binding.favoriteFloatingbtn.visibility = View.GONE
-                    Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
-                    var  city = binding.editcitynametext.text.toString()
-                    var gc = Geocoder(requireActivity() , Locale.getDefault())
-                    var addresses = gc.getFromLocationName(city , 1)
-                    if(! addresses.isNullOrEmpty()){
-                        var address = addresses.get(0)
-                        binding.editcitynametext.visibility = View.GONE
-                        binding.savebtn.visibility = View.GONE
-                        binding.favoriteFloatingbtn.visibility = View.VISIBLE
-                        val favorite = FavoriteModel( address.hashCode(), binding.editcitynametext.text.toString(), address.latitude, address.longitude)
-                        viewModal.insertCity(favorite)
-                        Log.i("TAG", "onCreateView: adedddddddddddddddddddddddddddddddddddddddddddddddd")
+            binding.savebtn.setOnClickListener {
+                binding.favoriteFloatingbtn.visibility = View.GONE
+                Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+                var city = binding.editcitynametext.text.toString()
+                var gc = Geocoder(requireActivity(), Locale.getDefault())
+                var addresses = gc.getFromLocationName(city, 1)
+                if (!addresses.isNullOrEmpty()) {
+                    var address = addresses.get(0)
+                    binding.editcitynametext.visibility = View.GONE
+                    binding.savebtn.visibility = View.GONE
+                    binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                    val favorite = FavoriteModel(
+                        address.hashCode(),
+                        binding.editcitynametext.text.toString(),
+                        address.latitude,
+                        address.longitude
+                    )
+                    viewModal.insertCity(favorite)
+                  //  Log.i("TAG", "onCreateView: adedddddddddddddddddddddddddddddddddddddddddddddddd")
 
-                        //binding.latlongtext.setText("latt ${address.latitude} ${address.longitude} ${address.adminArea}")
-                        binding.favoriteRecycle.visibility = View.VISIBLE
-                        binding.favoriteFloatingbtn.visibility=View.VISIBLE
-                    }else {
-                        Toast.makeText(requireContext() , "Plesse enter valid area" , Toast.LENGTH_SHORT).show()
-                        Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
-
-                    }
+                    //binding.latlongtext.setText("latt ${address.latitude} ${address.longitude} ${address.adminArea}")
+                    binding.favoriteRecycle.visibility = View.VISIBLE
+                    binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                } else {
+                    Toast.makeText(requireContext(), "Plesse enter valid area", Toast.LENGTH_SHORT).show()
+                  //  Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
 
                 }
-
-
+            }
         }
-
-
 
         return binding.root
     }
 
-    private fun getDailyRecyleview () {
-
+    private fun getDailyRecyleview() {
         binding.favoriteRecycle.apply {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(requireContext() )
+            layoutManager = LinearLayoutManager(requireContext())
             adapter = favAdapter
         }
-
-       // favoriteRecycleView = binding.favoriteRecycle
-       // val layoutManager = LinearLayoutManager(requireContext() )
-       // favAdapter = FavoriteAdapter(this, this)
-       // favoriteRecycleView.adapter = favAdapter
-        //favoriteRecycleView.layoutManager = layoutManager
     }
+
     public fun observeg() {
         viewModal.favorites.observe(requireActivity(), androidx.lifecycle.Observer {
             favAdapter.setList(it as ArrayList<FavoriteModel>)
         })
     }
-
-        //private fun initView() {
-        //   binding.fabAdd.setOnClickListener {
-        //     val intent = Intent(this, MainActivity2::class.java)
-        //   startActivity(intent)
-        //   }
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         Log.i("TAG", "onActivityResult:sssssssssssssssssssssssssssssssssssssssss ")
@@ -172,15 +169,21 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
 */
             when (resultCode) {
 
-                        2 -> { // Activity.RESULT_OK
-                    Log.i("TAG", "onActivityResult:kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk ")
+                2 -> { // Activity.RESULT_OK
+                    Log.i(
+                        "TAG",
+                        "onActivityResult:kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk "
+                    )
 
                     data?.let {
                         Log.i("TAG", "onActivityResult:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb ")
 
                         val place = Autocomplete.getPlaceFromIntent(data)
                         binding.latlongtext.text = place.latLng.toString()
-                        Log.i("TAG", "Place: ${place.name} , ${place.address} ,${place.latLng} , ${place.id}")
+                        Log.i(
+                            "TAG",
+                            "Place: ${place.name} , ${place.address} ,${place.latLng} , ${place.id}"
+                        )
                     }
                 }
                 AutocompleteActivity.RESULT_ERROR -> {
@@ -191,7 +194,7 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
                 }
                 Activity.RESULT_CANCELED -> {
                     // The user canceled the operation.
-                    Log.i("TAG",  "canceleddddddddddddddddddddddddddddd")
+                    Log.i("TAG", "canceleddddddddddddddddddddddddddddd")
 
                 }
             }
@@ -202,13 +205,21 @@ class FavoriteFragment : Fragment() , FavoriteClickInterface, FavoriteOnDeleteCl
 
     }
 
-
     companion object {
 
     }
 
     override fun onFavoriteClick(model: FavoriteModel) {
 
+
+        var bundle = Bundle()
+        model.latitude?.let { bundle.putDouble("latitude", it) }
+        model.longtude?.let { bundle.putDouble("longtude", it) }
+
+        val df = FavoriteDetailsFragment()
+        df.arguments = bundle
+        fragmentManager?.beginTransaction()?.replace(R.id.fragmentContainerView, df)?.commit()
+        // Navigation.findNavController(requireView()).navigate(R.id.action_favoriteFragment2_to_favoriteDetailsFragment)
     }
 
     override fun onDeleteClick(model: FavoriteModel) {

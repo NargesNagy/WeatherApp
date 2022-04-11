@@ -15,6 +15,7 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +29,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.data.Repository
 import com.example.weatherapp.data.remotesource.RetrofitService
 import com.example.weatherapp.databinding.FragmentHomeBinding
+import com.example.weatherapp.favorite.view.FavoriteDetailsFragment
 //import com.example.weatherapp.databinding.FragmentHomeBinding
 import com.example.weatherapp.home.viewmodel.MyViewModel
 import com.example.weatherapp.home.model.Daily
@@ -61,6 +63,9 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+
+        //view?.setBackgroundColor(resources.getColor(R.color.back))
+        //fragmentManager?.findFragmentById(R.id.favoriteDetailsFragment )?.view?.visibility = GONE
 
         binding = FragmentHomeBinding.inflate(LayoutInflater.from(context) , container , false)//,container , false)
         //setContentView(binding.root)

@@ -14,7 +14,15 @@
         android:id="@+id/favoriteFragment2"
         android:name="com.example.weatherapp.favorite.view.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment2_to_favoriteDetailsFragment"
+            app:destination="@id/favoriteDetailsFragment" />
+         <argument
+            android:name="favmodelargs"
+
+        />
+    </fragment>
     <fragment
         android:id="@+id/alertsFragment2"
         android:name="com.example.weatherapp.AlertsFragment"

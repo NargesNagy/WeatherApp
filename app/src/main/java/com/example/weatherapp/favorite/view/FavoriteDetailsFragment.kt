@@ -63,11 +63,16 @@ class FavoriteDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // get latitude and longtude from favorite fragment
+        val jj = Bundle()
+        jj.get("latt")
 
-
+        var args = this.arguments
+        lattitude = args?.get("latitude") as Double
+        longtude = args?.get("longtude") as Double
+        Log.i("TAG", "onCreateView: ${lattitude}ttttttttttttttttttttttttttttttttttttttttttttttttttttttttt")
 
         binding = FragmentFavoriteDetailsBinding.inflate(LayoutInflater.from(context) , container , false)//,container , false)
-        //setContentView(binding.root)
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
@@ -144,13 +149,10 @@ class FavoriteDetailsFragment : Fragment() {
         })
 
 
-        getCurrentLocation()
         viewModel.getAllMovies(lattitude , longtude ,"en" , "metric")//
 
         return binding.root
     }
-
-
 
     private fun gethoursRecyleview() {
         hoursRecycleView = binding.favoriteDetailsHoursRecycleView
@@ -170,7 +172,12 @@ class FavoriteDetailsFragment : Fragment() {
         dailyRecycleView.layoutManager = layoutManager
     }
 
+    override fun onPause() {
+        super.onPause()
+        binding.favoriteDetailsCountryNameHomeText.visibility = View.GONE
+    }
 
+/*
     private fun getCurrentLocation() {
         if (checkPermission()) {
             if (isLocationIsEnabled()) {
@@ -295,5 +302,7 @@ class FavoriteDetailsFragment : Fragment() {
             //text.setText("Longitude : " + mLastLocation.longitude)
         }
     }
+
+*/
 
 }
