@@ -1,0 +1,68 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:icon="@drawable/language"
+        app:title="@string/language">
+
+
+        <ListPreference
+            app:defaultValue="en"
+            app:entries="@array/language_entries"
+            app:entryValues="@array/language_values"
+            app:key="languages"
+            app:title="@string/language"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory app:title="@string/location" android:icon="@drawable/baseline_location">
+
+        <ListPreference
+            app:defaultValue="gps"
+            app:entries="@array/location_entries"
+            app:entryValues="@array/location_values"
+            app:key="locations"
+            app:title="@string/location"
+            app:useSimpleSummaryProvider="true" />
+
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/tempreture" android:icon="@drawable/star">
+
+        <ListPreference
+            app:defaultValue="metric"
+            app:entries="@array/tempreture_entries"
+            app:entryValues="@array/tempreture_values"
+            app:key="tempretures"
+            app:title="@string/tempreture"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/windSpeed" android:icon="@drawable/air">
+
+        <ListPreference
+            app:defaultValue="wind"
+            app:entries="@array/wind_entries"
+            app:entryValues="@array/wind_values"
+            app:key="windspeed"
+            app:title="@string/arabic"
+            app:useSimpleSummaryProvider="true" />
+
+
+    </PreferenceCategory>
+
+
+
+    <PreferenceCategory app:title="@string/alerts" android:icon="@drawable/notifications">
+
+        <SwitchPreferenceCompat
+            app:key="alerts"
+            app:title="@string/alerts" />
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

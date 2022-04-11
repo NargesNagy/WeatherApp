@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.data.Repository
+import com.example.weatherapp.data.remotesource.API_KEY
 import com.example.weatherapp.home.model.Weather
 import kotlinx.coroutines.*
 
@@ -24,9 +25,9 @@ class MyViewModel constructor(private val mainRepository: Repository) : ViewMode
     }
     val loading = MutableLiveData<Boolean>()
 
-    fun getAllMovies(lat : Double , lon : Double , lan : String , unites : String) { //
+    fun getAllMovies(lat : Double , lon : Double , lan : String , unites : String , exclude : String  , appid : String ) { //
         job = CoroutineScope(Dispatchers.IO ).launch {
-            val response = mainRepository.getWeather(lat , lon , lan , unites )//, lan , unites
+            val response = mainRepository.getWeather(lat , lon , lan , unites , exclude , appid)//, lan , unites
             withContext(Dispatchers.Main) {
                 if (response?.isSuccessful == true) {
                     _response.postValue(response.body())
