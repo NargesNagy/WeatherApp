@@ -94,8 +94,6 @@ class FavoriteFragment : Fragment(), FavoriteClickInterface, FavoriteOnDeleteCli
             binding.editcitynametext.visibility = View.VISIBLE
             binding.favoriteRecycle.visibility = View.GONE
 
-
-
             binding.savebtn.setOnClickListener {
                 binding.favoriteFloatingbtn.visibility = View.GONE
                 Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
@@ -108,9 +106,14 @@ class FavoriteFragment : Fragment(), FavoriteClickInterface, FavoriteOnDeleteCli
                         binding.editcitynametext.visibility = View.GONE
                         binding.savebtn.visibility = View.GONE
                         binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                        var name : String = binding.editcitynametext.text.toString()
+                            if (address.countryName != null) {
+                                name = address.countryName
+                            }
+
                         val favorite = FavoriteModel(
-                            address.hashCode(),
-                            binding.editcitynametext.text.toString(),
+                            name,
+                            name,
                             address.latitude,
                             address.longitude
                         )

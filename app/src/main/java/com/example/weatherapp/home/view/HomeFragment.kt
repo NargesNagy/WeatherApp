@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
 import android.os.Build
@@ -30,6 +31,7 @@ import com.example.weatherapp.R
 import com.example.weatherapp.data.Repository
 import com.example.weatherapp.data.remotesource.RetrofitService
 import com.example.weatherapp.databinding.FragmentHomeBinding
+import com.example.weatherapp.favorite.model.FavoriteModel
 import com.example.weatherapp.home.model.Daily
 import com.example.weatherapp.home.model.Hourly
 import com.example.weatherapp.home.viewmodel.MyViewModel
@@ -56,6 +58,12 @@ class HomeFragment : Fragment() {
     var longtude: Double = 29.9245787
     var language: String = "en"
     var unites: String = "metric"
+    var gps : String = ""
+
+    var searchlattitude: Double = 31.1926745
+    var searchlongtude: Double = 29.9245787
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +72,10 @@ class HomeFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
 
-        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
+       val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext())
         language = sharedPreferences.getString("languages", "").toString()
         unites = sharedPreferences.getString("tempretures", "").toString()
+        gps = sharedPreferences.getString("locations","").toString()
 
         // get the language and apply iy
         val configuration: Configuration = requireContext().resources.configuration
@@ -86,6 +95,60 @@ class HomeFragment : Fragment() {
         } else {
             binding = FragmentHomeBinding.inflate(LayoutInflater.from(context), container, false)//,container , false)
         }
+
+
+      //  binding.searchEditText.visibility = View.GONE
+       // binding.searchbtn.visibility = View.GONE
+         binding.searchimage.visibility = View.GONE
+
+  /*      binding.searchimage.setOnClickListener {
+
+            binding.cardView.visibility = View.GONE
+            binding.searchEditText.visibility = View.VISIBLE
+            binding.searchbtn.visibility = View.VISIBLE
+            binding.countryNameHomeText.visibility = View.GONE
+            binding.dateHomeText.visibility = View.GONE
+            binding.hoursRecycleView.visibility = View.GONE
+            binding.dailyRecycleView.visibility = View.GONE
+*/
+            binding.searchbtn.setOnClickListener {
+                Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+                var city = binding.searchEditText.text.toString()
+                var gc = Geocoder(requireActivity(), Locale.getDefault())
+                if(!city.isNullOrEmpty()){
+                    var addresses = gc.getFromLocationName(city, 1)
+                    if (!addresses.isNullOrEmpty()) {
+                        var address = addresses.get(0)
+                        //binding.searchEditText.visibility = View.GONE
+                       // binding.searchbtn.visibility = View.GONE
+                        //binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                        var name : String = binding.searchEditText.text.toString()
+                        if (address.countryName != null) {
+                            name = address.countryName
+                        }
+                        val searchcity = FavoriteModel(name, binding.searchEditText.text.toString(), address.latitude, address.longitude)
+                        searchlattitude = address.latitude
+                        searchlongtude = address.longitude
+
+                        viewModel.getAllMovies(searchlattitude, searchlongtude, language, unites, "minutely", "fccb113f3db977a207025c87caa649c0")
+
+                        //binding.latlongtext.setText("latt ${address.latitude} ${address.longitude} ${address.adminArea}")
+                        //binding.favoriteRecycle.visibility = View.VISIBLE
+                        //binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                    } else {
+                        Toast.makeText(requireContext(), "Plesse enter valid area", Toast.LENGTH_SHORT).show()
+                        //  Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+
+                    }
+                }else{
+                    Toast.makeText(requireContext(), "Plesse enter a city", Toast.LENGTH_SHORT).show()
+
+                }
+
+            }
+
+            Toast.makeText(requireContext(), "search", Toast.LENGTH_SHORT).show()
+        //}
 
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
@@ -152,19 +215,81 @@ class HomeFragment : Fragment() {
             getDailyRecyleview()
         })
 
-        viewModel.errorMessage.observe(requireActivity(), {
-           // Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        })
+        binding.getgpsbtn.setOnClickListener {
+            if(gps == "gps"){
+                getCurrentLocation()
+                viewModel.getAllMovies(lattitude, longtude, language, unites, "minutely", "fccb113f3db977a207025c87caa649c0")
 
-        viewModel.loading.observe(requireActivity(), Observer {
-            if (it) {
-                   } else {
-
+            }else{
+                Toast.makeText(requireContext(), "GPS is not enabled please open it first", Toast.LENGTH_SHORT).show()
             }
-        })
+        }
 
-        getCurrentLocation()
-        viewModel.getAllMovies(lattitude, longtude, language, unites, "minutely", "fccb113f3db977a207025c87caa649c0")
+       if(gps == "gps"){
+           getCurrentLocation()
+           viewModel.getAllMovies(lattitude, longtude, language, unites, "minutely", "fccb113f3db977a207025c87caa649c0")
+
+       }
+       else if (gps == "map"){
+           binding.cardView.visibility = View.GONE
+           binding.searchEditText.visibility = View.VISIBLE
+           binding.searchbtn.visibility = View.VISIBLE
+           binding.countryNameHomeText.visibility = View.GONE
+           binding.dateHomeText.visibility = View.GONE
+           binding.hoursRecycleView.visibility = View.GONE
+           binding.dailyRecycleView.visibility = View.GONE
+
+
+           binding.searchbtn.setOnClickListener {
+               Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+               var city = binding.searchEditText.text.toString()
+               var gc = Geocoder(requireActivity(), Locale.getDefault())
+               if(!city.isNullOrEmpty()){
+                   var addresses = gc.getFromLocationName(city, 1)
+                   if (!addresses.isNullOrEmpty()) {
+                       var address = addresses.get(0)
+
+                       binding.cardView.visibility = View.VISIBLE
+                       binding.searchEditText.visibility = View.VISIBLE
+                       binding.searchbtn.visibility = View.VISIBLE
+                       binding.countryNameHomeText.visibility = View.VISIBLE
+                       binding.dateHomeText.visibility = View.VISIBLE
+                       binding.hoursRecycleView.visibility = View.VISIBLE
+                       binding.dailyRecycleView.visibility = View.VISIBLE
+
+
+                       //binding.searchEditText.visibility = View.GONE
+                       // binding.searchbtn.visibility = View.GONE
+                       //binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                       var name : String = binding.searchEditText.text.toString()
+                       if (address.countryName != null) {
+                           name = address.countryName
+                       }
+                       val searchcity = FavoriteModel(name, binding.searchEditText.text.toString(), address.latitude, address.longitude)
+                       searchlattitude = address.latitude
+                       searchlongtude = address.longitude
+
+
+
+                       viewModel.getAllMovies(searchlattitude, searchlongtude, language, unites, "minutely", "fccb113f3db977a207025c87caa649c0")
+
+                       //binding.latlongtext.setText("latt ${address.latitude} ${address.longitude} ${address.adminArea}")
+                       //binding.favoriteRecycle.visibility = View.VISIBLE
+                       //binding.favoriteFloatingbtn.visibility = View.VISIBLE
+                   } else {
+                       Toast.makeText(requireContext(), "Plesse enter valid area", Toast.LENGTH_SHORT).show()
+                       //  Log.i("TAG", "onCreateView: lkjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj")
+
+                   }
+               }else{
+                   Toast.makeText(requireContext(), "Plesse enter a city", Toast.LENGTH_SHORT).show()
+
+               }
+
+           }
+
+           viewModel.getAllMovies(searchlattitude, searchlongtude, language, unites, "minutely", "fccb113f3db977a207025c87caa649c0")
+       }
 
         return binding.root
     }
