@@ -17,19 +17,43 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/searchimage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginBottom="32dp"
-                android:src="@drawable/search"
-                app:layout_constraintBottom_toTopOf="@+id/cardView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.996"
-                app:layout_constraintStart_toEndOf="@+id/country_Name_home_text" />
 
-            
+            <EditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="190dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:hint="@string/search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.072"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Button
+                android:id="@+id/searchbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/search"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.82"
+                app:layout_constraintStart_toEndOf="@id/search_edit_text"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/getgpsbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/gps"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="@+id/searchbtn"
+                app:layout_constraintHorizontal_bias="0.982"
+                app:layout_constraintStart_toEndOf="@+id/country_Name_home_text"
+                app:layout_constraintTop_toBottomOf="@+id/searchbtn" />
+
             <TextView
                 android:id="@+id/country_Name_home_text"
                 android:layout_width="wrap_content"
@@ -40,7 +64,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.009"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/searchbtn" />
 
             <TextView
                 android:id="@+id/date_home_text"
@@ -65,7 +89,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.492"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/date_home_text">
+                app:layout_constraintTop_toBottomOf="@id/date_home_text">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -497,41 +521,10 @@
 
             </androidx.cardview.widget.CardView>
 
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-    <EditText
-        android:id="@+id/search_edit_text"
-        android:layout_width="190dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <Button
-        android:id="@+id/searchbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="112dp"
-        android:text="@string/search"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_edit_text" />
-
-    <Button
-        android:id="@+id/getgpsbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/gps"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchbtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
