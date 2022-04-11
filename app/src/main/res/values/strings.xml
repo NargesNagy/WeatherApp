@@ -31,7 +31,7 @@
     <string name="language">Language</string>
     <string name="tempreture">Tempreture</string>
     <string name="windSpeed">WindSpeed</string>
-    <string name="gps">GPS</string>
+
     <string name="map">Map</string>
     <string name="english">English</string>
     <string name="on">ON</string>
@@ -48,4 +48,6 @@
     <string name="arabic">Arabic</string>
     <string name="save">Save</string>
     <string name="delete">Delete</string>
+    <string name="search">Search</string>
+    <string name="gps">GPS</string>
 </resources>
