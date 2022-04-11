@@ -53,6 +53,8 @@ class HomeFragment : Fragment() {
     lateinit var dailyRecycleViewAdapter: DailyRecycleAdapter;
     lateinit var dailyList: List<Daily>
 
+    // lklkkjkhkbmbm
+
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     var lattitude: Double = 31.1926745
     var longtude: Double = 29.9245787
